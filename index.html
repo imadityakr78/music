@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web player music for evryone</title>
+  <link rel="stylesheet" src="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+  }
+
+  body {
+    background-color: black;
+  }
+
+  .spotifylogo {
+    width: 40px;
+  }
+
+  .searchlogo {
+    margin-top: 5px;
+    width: 30px;
+  }
+
+  .hlogo {
+    width: 22px;
+  }
+
+  .searchbar {
+    width: 35vw;
+    height: 45px;
+    border-radius: 22.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(26, 25, 25);
+    transition: background-color 0.3s ease
+  }
+
+  .searchbar:hover {
+    background-color: rgba(255, 255, 255, 0.224);
+  }
+
+  .searchbar input {
+    width: 19rem;
+    background-color: black;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    padding-left: 6px;
+  }
+
+  .homelogo {
+    border-radius: 22.5px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(26, 25, 25);
+    transition: background-color 0.3s ease;
+  }
+
+  .homelogo:hover {
+    background-color: rgba(255, 255, 255, 0.224);
+  }
+
+  .tooltiparent {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .tooltiparent .tooltiptext {
+    pointer-events: none;
+    width: auto;
+    white-space: nowrap;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    top: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 px 16px black;
+  }
+
+  .tooltiparent:hover .tooltiptext {
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px);
+  }
+
+  input::placeholder {
+    color: white;
+    font-weight: 500;
+  }
+
+  .invert {
+    filter: invert(0.5);
+  }
+
+  .container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.7rem;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    height: 45px;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.667);
+    padding: 0 15px;
+  }
+
+  .navleft {
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navright {
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .home {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .install {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .main {
+    height: 435px;
+    width: 99%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+
+  .left {
+    height: 100%;
+    width: 28%;
+    background-color: rgb(26, 25, 25);
+    border-radius: 7px;
+  }
+
+  .right {
+    height: 100%;
+    width: 71.3%;
+    background-color: rgb(26, 25, 25);
+    border-radius: 7px;
+    overflow-y: auto;
+  }
+
+  .premium {
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .install p:hover {
+    color: white;
+    cursor: pointer;
+  }
+
+  .account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    width: 26px;
+    height: 26px;
+    background-color: orangered;
+    border-radius: 13px;
+    box-shadow: 0 0 0 6px rgb(48, 48, 48);
+  }
+
+  .musicnav {
+    width: 100%;
+    height: 55px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-left: 25px;
+    background-color: rgb(26, 25, 25);
+  }
+
+  .rightlogos {
+    background-color: rgba(255, 255, 255, 0.119);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .music {
+    background-color: white;
+    color: black;
+  }
+
+  .all {
+    margin-left: 10px;
+  }
+
+  .main {
+    color: white;
+  }
+
+  .cardcontainer {
+    margin-top: 20px;
+    margin-left: 25px;
+  }
+
+  .titlecard {
+    margin-left: 10px;
+  }
+
+  .card {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 205px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+
+  }
+
+  .card:hover {
+    background-color: rgb(53, 53, 53);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .play-button {
+    visibility: hidden;
+    position: absolute;
+    top: 65%;
+    left: 60%;
+    background-color: #1DB954;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover .play-button {
+    visibility: visible;
+  }
+
+  .play-button:hover {
+    transform: scale(1.05);
+    background-color: #14893d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.445);
+  }
+
+  .play-icon {
+    width: 0;
+    height: 0;
+    border-left: 13px solid #000000;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-left: 3px;
+  }
+
+  .cardcontent {
+    width: 140px;
+    height: 185px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cards {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .imgblock img {
+
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+  }
+
+  .imgblock {
+    position: relative;
+  }
+
+
+  .cardtext {
+    width: 100%;
+    height: 35px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .right::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  .right::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .right::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(70, 70, 70);
+  }
+
+  .right::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .right:hover.right::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.124);
+  }
+
+
+  .cards::-webkit-scrollbar {
+    height: 9px;
+  }
+
+  .cards::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 4px;
+  }
+
+  .cards::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(70, 70, 70);
+  }
+
+  .cards::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .cards:hover.cards::-webkit-scrollbar-thumb {
+    background-color: rgb(76, 74, 74);
+  }
+
+
+
+  .playbar {
+    height: 65px;
+    width: 99%;
+    display: flex;
+
+  }
+
+  .playleft {
+    height: 100%;
+    width: 31.33%;
+
+  }
+
+  .playmiddle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 37.33%;
+  }
+
+  .playright {
+    height: 100%;
+    width: 31.33%;
+
+  }
+
+  .topcontrolbuttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+  }
+
+  .bottomseekbar {
+    width: 100%;
+    height: 50%;
+
+  }
+
+  .playpause {
+    height: 100%;
+    width: 32.5px;
+    border-radius: 16.25px;
+    background-color: white;
+  }
+
+  .playpause-button {
+    background-color: #fafafa;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .playpause-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.445);
+  }
+
+  .playpauseicon {
+    margin-top: 3px;
+  }
+
+  .seekbar {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 80%;
+    height: 3px;
+    background: #555;
+    border-radius: 2px;
+    outline: none;
+    transition: background 0.2s;
+  }
+
+  .seekbar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1DB954;
+    cursor: pointer;
+  }
+
+  .next-button {
+    background-color: #000000;
+    border: none;
+  }
+
+  .next-button:active svg {
+    fill: rgb(88, 88, 88);
+  }
+
+  .previous-button:active svg {
+    fill: rgb(88, 88, 88);
+  }
+
+  .previous-button {
+    background-color: #000000;
+    border: none;
+  }
+
+  .bottomseekbar {
+
+    font-size: small;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .currentime {
+    width: 25px;
+  }
+
+  .playerimg {
+    margin-left: 10px;
+    height: 60px;
+    width: 60px;
+
+  }
+
+  .playleft {
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  .songdetails {
+    margin-left: 20px;
+  }
+
+  .songname {
+    font-weight: 600;
+  }
+
+  .artistname {
+    font-size: smaller;
+  }
+
+  .playerimg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .mobilenav {
+    display: none;
+  }
+
+  .mobileplaybar {
+    display: none;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  @media (max-width: 600px) and (orientation: portrait) {
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: none;
+    }
+
+    .left {
+      display: none;
+    }
+
+    .right {
+      height: 100vh;
+      width: 100vw;
+      background-color: #111111;
+
+    }
+
+    .navright {
+      display: none;
+    }
+
+    .searchbar input {
+      display: none;
+    }
+
+    .playbar {
+      display: none;
+    }
+
+    .nav {
+      height: 7vh;
+      position: fixed;
+      top: 0;
+      z-index: 102;
+      background-color: #000000;
+    }
+
+    .main {
+      margin-top: 60px;
+      height: 93vh;
+    }
+
+    .musicnav {
+      display: none;
+    }
+
+    .cardcontainer {
+      margin-left: 10px;
+    }
+
+    .homelogo {
+      display: none;
+    }
+
+    .browselogo {
+      display: none;
+    }
+
+    .searchlogo {
+      display: none;
+    }
+
+    .searchbar {
+      display: none;
+    }
+
+    .mobilenav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .searchlogomobile {
+      width: 25px;
+    }
+
+    .openapp {
+      background-color: white;
+      padding: 6px;
+      border-radius: 15px;
+      color: #000000;
+      font-size: smaller;
+    }
+
+    .all {
+      margin-left: 0px;
+    }
+
+    .right::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobileplaybarcontent {
+      background-color: #272727;
+      margin-top: 0px;
+      display: flex;
+      flex-direction: column;
+      padding-top: 5px;
+      width: 100%;
+      height: 90%;
+    }
+
+    .mobileplaybaruppercontent {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .mobileseekbarcontainer {
+      height: 13px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobileplaybar {
+      display: none;
+      height: 75px;
+      position: fixed;
+      bottom: 0;
+      color: white;
+      width: 100vw;
+      background-color: #000000;
+    }
+
+    .playerimgblock {
+      height: 50px;
+      width: 50px;
+    }
+
+    .playerimg {
+      height: 100%;
+      width: 100%;
+    }
+
+    .mobileplayleft {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .mobileplayright {
+      position: absolute;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .previous-button{
+      background-color: transparent;
+    }
+    .next-button{
+      background-color: transparent;
+    }
+
+    .like-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .heart-icon path {
+      transition: fill 0.3s ease;
+    }
+
+   
+    .like-button.liked .heart-icon path {
+      fill: red;
+    }
+
+   
+    .heart-icon path {
+      fill: none;
+      stroke: red;
+      stroke-width: 2;
+    }
+
+    .songdetails {
+      margin-left: 15px;
+    }
+
+    .songname {
+      font-size: 0.8rem;
+    }
+
+    .artistname {
+      font-size: 0.7rem;
+    }
+
+    .seekbar {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 95%;
+      height: 3px;
+      background: #555;
+      border-radius: 2px;
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    .seekbar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    button,
+    a,
+    div {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hamburger {
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      display: block;
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1001;
+    }
+
+    .sidebar a {
+      padding: 10px 30px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+   
+  }
+
+  @media (max-height: 500px) and (orientation:landscape) {
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: none;
+    }
+
+    .left {
+      display: none;
+    }
+
+    .right {
+      height: 100vh;
+      width: 100vw;
+      background-color: #111111;
+
+    }
+
+    .navright {
+      display: none;
+    }
+
+    .searchbar input {
+      display: none;
+    }
+
+    .playbar {
+      display: none;
+    }
+
+    .nav {
+      height: 60px;
+      position: fixed;
+      top: 0;
+      z-index: 102;
+      background-color: #000000;
+    }
+
+    .main {
+      margin-top: 60px;
+      height: 93vh;
+    }
+
+    .musicnav {
+      display: none;
+    }
+
+    .cardcontainer {
+      margin-left: 10px;
+    }
+
+    .homelogo {
+      display: none;
+    }
+
+    .browselogo {
+      display: none;
+    }
+
+    .searchlogo {
+      display: none;
+    }
+
+    .searchbar {
+      display: none;
+    }
+
+    .mobilenav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .searchlogomobile {
+      width: 25px;
+    }
+
+    .openapp {
+      background-color: white;
+      padding: 6px;
+      border-radius: 15px;
+      color: #000000;
+      font-size: smaller;
+    }
+
+    .all {
+      margin-left: 0px;
+    }
+
+    .right::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cards::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobileplaybarcontent {
+      background-color: #272727;
+      margin-top: 0px;
+      display: flex;
+      flex-direction: column;
+      padding-top: 5px;
+      width: 100%;
+      height: 90%;
+    }
+
+    .mobileplaybaruppercontent {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .mobileseekbarcontainer {
+      height: 13px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobileplaybar {
+      display: none;
+      height: 75px;
+      position: fixed;
+      bottom: 0;
+      color: white;
+      width: 100vw;
+      background-color: #000000;
+    }
+
+    .playerimgblock {
+      height: 50px;
+      width: 50px;
+    }
+
+    .playerimg {
+      height: 100%;
+      width: 100%;
+    }
+
+    .mobileplayleft {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .mobileplayright {
+      position: absolute;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .previous-button{
+      background-color: transparent;
+    }
+    .next-button{
+      background-color: transparent;
+    }
+
+    .like-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .heart-icon path {
+      transition: fill 0.3s ease;
+    }
+
+   
+    .like-button.liked .heart-icon path {
+      fill: red;
+    }
+
+   
+    .heart-icon path {
+      fill: none;
+      stroke: red;
+      stroke-width: 2;
+    }
+
+    .songdetails {
+      margin-left: 15px;
+    }
+
+    .songname {
+      font-size: 0.8rem;
+    }
+
+    .artistname {
+      font-size: 0.7rem;
+    }
+
+    .seekbar {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 95%;
+      height: 3px;
+      background: #555;
+      border-radius: 2px;
+      outline: none;
+      transition: background 0.2s;
+    }
+
+    .seekbar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    button,
+    a,
+    div {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hamburger {
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      display: block;
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1001;
+    }
+
+    .sidebar a {
+      padding: 10px 30px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="navleft">
+        <div class="home">
+          <img class="spotifylogo" src="spotifylogo.svg">
+          <span class="homelogo tooltiparent">
+            <img class="hlogo" src="homelogo.svg">
+            <span class="tooltiptext">Home</span>
+          </span>
+        </div>
+        <div class="searchbar">
+          <label for="searchsite">
+            <span class="tooltiparent">
+              <img class="searchlogo" src="searchlogo.svg">
+              <span class="tooltiptext">Search</span>
+            </span>
+          </label>
+          <input type="text" id="searchsite" placeholder="What do you want to play">
+
+          <span class="tooltiparent">
+            <img class="invert browselogo" width="28" height="28"
+              src="https://img.icons8.com/pulsar-line/48/search-in-browser.png" alt="search-in-browser" />
+            <span class="tooltiptext">Browse</span>
+          </span>
+        </div>
+      </div>
+      <div class="navright">
+        <div class="premium">
+          <p>Explore Premium</p>
+        </div>
+        <div class="install">
+          <img class="invert" width="20" height="20"
+            src="https://img.icons8.com/fluency-systems-filled/48/downloading-updates.png" alt="downloading-updates" />
+          <p>Install App</p>
+        </div>
+        <div class="bell tooltiparent">
+          <img class="invert" width="20" height="20"
+            src="https://img.icons8.com/forma-regular-sharp/24/appointment-reminders.png" alt="appointment-reminders" />
+          <span class="tooltiptext">What's New</span>
+        </div>
+        <div class="alert tooltiparent">
+          <img class="invert" width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/conference-call--v1.png"
+            alt="conference-call--v1" />
+          <span class="tooltiptext">Friend's Activity</span>
+        </div>
+        <div class="account tooltiparent">
+          <p>A</p>
+          <span class="tooltiptext">Aditya</span>
+        </div>
+      </div>
+      <div class="mobilenav">
+        <img class="searchlogomobile" src="searchlogo.svg">
+        <div class="openapp">Open App</div>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="left"></div>
+      <div class="right">
+        <div class="musicnav">
+          <span class="rightlogos all">All</span>
+          <span class="rightlogos music">Music</span>
+          <span class="rightlogos">Podcast</span>
+        </div>
+        <div class="cardcontainer">
+          <div class="titlecard">
+            <h2>My Fav</h2>
+          </div>
+          <div class="cards">
+            <div class="card" data-src="hawayein.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="hawayein.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Hawayein</div>
+              </div>
+            </div>
+            <div class="card" data-src="appocylispe.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="sunsetz.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Appocylispe</div>
+              </div>
+            </div>
+            <div class="card" data-src="itni-si-hasi.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="aashiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Itni Si Hasi</div>
+              </div>
+            </div>
+            <div class="card " data-src="somewhere.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="somewhere.jpg">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Somewhere Only We Know</div>
+              </div>
+            </div>
+            <div class="card" data-src="tu-meri-dost=hai.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="tu-meri-dost-hai.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Tu Meri Dost Hain</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cardcontainer">
+          <div class="titlecard">
+            <h2>All songs</h2>
+          </div>
+          <div class="cards">
+            <div class="card" data-src="tu-meri-dost=hai.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="tu-meri-dost-hai.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Tu Meri Dost Hain</div>
+              </div>
+            </div>
+            <div class="card " data-src="somewhere.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="somewhere.jpg">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Somewhere Only We Know</div>
+              </div>
+            </div>
+            <div class="card " data-src="raaz.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="raaz.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Raaz Aankhien Teri</div>
+              </div>
+            </div>
+            <div class="card" data-src="itni-si-hasi.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="aashiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Itni Si Hasi</div>
+              </div>
+            </div>
+            <div class="card" data-src="appocylispe.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="sunsetz.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Appocylispe</div>
+              </div>
+            </div>
+            <div class="card" data-src="hawayein.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="hawayein.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Hawayein</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="cardcontainer">
+          <div class="titlecard">
+            <h2>Recently Played</h2>
+          </div>
+          <div class="cards">
+            <div class="card " data-src="khamoshiyan.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="khamoshiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">khamoshiyan</div>
+              </div>
+            </div>
+            <div class="card" data-src="itni-si-hasi.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="aashiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Itni Si Hasi</div>
+              </div>
+            </div>
+            <div class="card " data-src="somewhere.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="somewhere.jpg">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Somewhere Only We Know</div>
+              </div>
+            </div>
+
+            <div class="card" data-src="appocylispe.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="sunsetz.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Appocylispe</div>
+              </div>
+            </div>
+            <div class="card" data-src="hawayein.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="hawayein.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Hawayein</div>
+              </div>
+            </div>
+            <div class="card" data-src="tu-meri-dost=hai.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="tu-meri-dost-hai.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Tu Meri Dost Hain</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cardcontainer">
+          <div class="titlecard">
+            <h2>Top Hits</h2>
+          </div>
+          <div class="cards">
+            <div class="card" data-src="appocylispe.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="sunsetz.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Appocylispe</div>
+              </div>
+            </div>
+            <div class="card" data-src="hawayein.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="hawayein.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Hawayein</div>
+              </div>
+            </div>
+            <div class="card " data-src="khamoshiyan.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="khamoshiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">khamoshiyan</div>
+              </div>
+            </div>
+            <div class="card" data-src="itni-si-hasi.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="aashiyan.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Itni Si Hasi</div>
+              </div>
+            </div>
+            <div class="card " data-src="somewhere.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="somewhere.jpg">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Somewhere Only We Know</div>
+              </div>
+            </div>
+
+            
+            
+            <div class="card" data-src="tu-meri-dost=hai.mp3">
+              <div class="cardcontent">
+                <div class="imgblock">
+                  <img src="tu-meri-dost-hai.png">
+                  <button class="play-button">
+                    <div class="play-icon"></div>
+                  </button>
+                </div>
+                <div class="cardtext">Tu Meri Dost Hain</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="playbar">
+      <div class="playleft">
+        <div class="playerimg">
+          <img src="default.png">
+        </div>
+        <div class="songdetails">
+          <div class="songname">-song-name-</div>
+          <div class="artistname">-artist-name-</div>
+        </div>
+      </div>
+      <div class="playmiddle">
+        <div class="topcontrolbuttons">
+          <button class="previous-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 6v12l-8.5-6L17 6zm-9.5 0h-2v12h2V6z" />
+            </svg>
+          </button>
+          <button class="playpause-button">
+            <div class="playpauseicon"><svg width="24" height="24" viewBox="0 0 24 24" fill="black"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </button>
+          <button class="next-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 18V6l8.5 6L6 18zm9.5 0V6h2v12h-2z" />
+            </svg>
+          </button>
+        </div>
+        <div class="bottomseekbar">
+          <div class="currentime">
+            <p>0:00</p>
+          </div>
+          <input type="range" class="seekbar" min="0" max="1000" value="0">
+          <div class="totaltime">-:--</div>
+        </div>
+      </div>
+      <div class="playright"></div>
+    </div>
+
+    <div class="mobileplaybar">
+      <div class="mobileplaybarcontent">
+        <div class="mobileplaybaruppercontent">
+          <div class="mobileplayleft">
+            <div class="playerimgblock">
+              <div class="playerimg">
+                <img src="default.png">
+              </div>
+            </div>
+            <div class="songdetails">
+              <div class="songname">-song-name-</div>
+              <div class="artistname">-artist-name-</div>
+            </div>
+          </div>
+          <div class="mobileplayright">
+            <button class="like-button" aria-label="Like">
+              <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+               2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 
+               4.5 2.09C13.09 3.81 14.76 3 16.5 3 
+               19.58 3 22 5.42 22 8.5c0 
+               3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </button>
+            <button class="previous-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 6v12l-8.5-6L17 6zm-9.5 0h-2v12h2V6z" />
+            </svg>
+          </button>
+            <button class="playpause-button">
+              <div class="playpauseicon"><svg width="24" height="24" viewBox="0 0 24 24" fill="black"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </button>
+            <button class="next-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 18V6l8.5 6L6 18zm9.5 0V6h2v12h-2z" />
+            </svg>
+          </button>
+          
+          </div>
+        </div>
+        <div class="mobileseekbarcontainer">
+          <input type="range" class="seekbar" min="0" max="1000" value="0">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar" class="sidebar">
+    <a class="closebtn" id="closebtn">
+      <h1>&times;</h1>
+    </a>
+    <a href="#">Log in</a>
+    <a href="#">Sign uo</a>
+    <a href="#">Premium</a>
+    <a href="#">Help</a>
+    <a href="#">Download</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  
+  <script src="script.js"></script>
+</body>
+
+</html>
