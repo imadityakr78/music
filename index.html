@@ -177,6 +177,123 @@
     border-radius: 7px;
   }
 
+  .library {
+    padding: 10px 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+
+  .libraryheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    font-weight: 700;
+    color: #a7a7a7;
+    font-size: 15px;
+  }
+
+  .libraryleft {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .libraryleft:hover {
+    color: white;
+  }
+
+  .libraryleft img {
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .libraryleft:hover img {
+    opacity: 1;
+  }
+
+  .libraryright {
+    display: flex;
+    gap: 15px;
+  }
+
+  .libraryright img {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .libraryright img:hover {
+    opacity: 1;
+  }
+
+  .librarycontent {
+    margin-top: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .librarycontent::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  .librarycontent::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 4px;
+  }
+
+  .librarycontent:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.124);
+  }
+
+  .librarycontent::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(70, 70, 70);
+  }
+
+  .libbox {
+    background-color: #242424;
+    padding: 16px 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .libbox h4 {
+    font-size: 15px;
+    color: white;
+  }
+
+  .libbox p {
+    font-size: 13px;
+    color: white;
+  }
+
+  .libbtn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s;
+  }
+
+  .libbtn:hover {
+    transform: scale(1.04);
+    background-color: #f6f6f6;
+  }
+
   .right {
     height: 100%;
     width: 71.3%;
@@ -1195,7 +1312,32 @@
       </div>
     </div>
     <div class="main">
-      <div class="left"></div>
+      <div class="left">
+        <div class="library">
+          <div class="libraryheader">
+            <div class="libraryleft">
+              <img class="invert" width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/stack-of-photos.png" alt="library"/>
+              <p>Your Library</p>
+            </div>
+            <div class="libraryright">
+              <img class="invert" width="20" height="20" src="https://img.icons8.com/android/24/plus.png" alt="plus"/>
+              <img class="invert" width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/arrow.png" alt="arrow"/>
+            </div>
+          </div>
+          <div class="librarycontent">
+            <div class="libbox">
+              <h4>Create your first playlist</h4>
+              <p>It's easy, we'll help you</p>
+              <button class="libbtn">Create playlist</button>
+            </div>
+            <div class="libbox">
+              <h4>Let's find some podcasts to follow</h4>
+              <p>We'll keep you updated on new episodes</p>
+              <button class="libbtn">Browse podcasts</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="right">
         <div class="musicnav">
           <span class="rightlogos all">All</span>
